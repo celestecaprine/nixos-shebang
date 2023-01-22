@@ -158,6 +158,7 @@
       ];
     };
     systemPackages = with pkgs; [
+      pinentry-curses
       inputs.alejandra.defaultPackage.${system}
       smartmontools
       unzip

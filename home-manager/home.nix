@@ -111,6 +111,7 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {
+    extraConfig.credential."https://github.com".helper = lib.mkForce "!${pkgs.gh}/bin/gh auth git-credential";
     enable = true;
     userEmail = "celestecaprine@protonmail.com";
     userName = "Shebang";
