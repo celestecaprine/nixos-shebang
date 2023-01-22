@@ -17,6 +17,7 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
+    ../../secrets/passwords.nix
     ./boot.nix
     inputs.impermanence.nixosModules.impermanence
   ];
