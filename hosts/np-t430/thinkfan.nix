@@ -1,22 +1,25 @@
 #{config, lib, pkgs, ...}:
-
 {
   boot.extraModprobeConfig = ''
     options thinkpad_acpi fan_control=1
   '';
   services.thinkfan = {
     enable = true;
-    fans = [{
-      type = "tpacpi";
-      query = "/proc/acpi/ibm/fan";
-    }];
-    sensors = [{
-      type = "hwmon";
-      query = "/sys/devices/platform/coretemp.0/hwmon";
-      indices = [ 1 2 3 4 5 ];
-    }];
+    fans = [
+      {
+        type = "tpacpi";
+        query = "/proc/acpi/ibm/fan";
+      }
+    ];
+    sensors = [
+      {
+        type = "hwmon";
+        query = "/sys/devices/platform/coretemp.0/hwmon";
+        indices = [1 2 3 4 5];
+      }
+    ];
     levels = [
-      [0 0  45]
+      [0 0 45]
       [1 40 50]
       [2 45 55]
       [3 50 60]

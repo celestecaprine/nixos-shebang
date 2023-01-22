@@ -29,6 +29,13 @@
     neededForBoot = true;
   };
 
+  fileSystems."/etc/secrets" = {
+    device = "rpool/nixos/secrets";
+    fsType = "zfs";
+    options = ["zfsutil" "noatime" "X-mount.mkdir"];
+    neededForBoot = true;
+  };
+
   fileSystems."/var" = {
     device = "rpool/nixos/var";
     fsType = "zfs";
