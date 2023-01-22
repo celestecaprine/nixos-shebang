@@ -17,7 +17,6 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    ../../secrets/passwords.nix
     ./boot.nix
     inputs.impermanence.nixosModules.impermanence
   ];
@@ -67,10 +66,11 @@
 
   users = {
     #defaultUserShell = pkgs.zsh;
-    mutableUsers = false;
+    mutableUsers = true;
     users = {
       shebang = {
         isNormalUser = true;
+        initialPassword = "changeme";
         openssh.authorizedKeys.keyFiles = [
           ./keys/np-desktop-id_rsa.pub
         ];
@@ -155,6 +155,9 @@
       directories = [
         "/etc/ssh"
         "/etc/NetworkManager"
+      ];
+      files = [
+        "/etc/passwd"
       ];
     };
     systemPackages = with pkgs; [
