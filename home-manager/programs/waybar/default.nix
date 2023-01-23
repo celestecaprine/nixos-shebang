@@ -72,10 +72,9 @@
         };
         "pulseaudio" = {
           "format" = "<span foreground='#cba6f7'>{icon}</span> {volume}%";
-          "format-muted" = "";
-          "format-icons" = {
-            "default" = ["" ""];
-          };
+          "format-muted" = "";
+          "format-icons" = {"default" = ["" "" ""];};
+          "ignored-sinks" = ["EasyEffects Sink"];
           "on-click" = "pavucontrol";
           "on-click-middle" = "wpctl set-mute @DEFAULT_SINK@ toggle";
         };
@@ -193,7 +192,7 @@
               color: @overlay0;
               font-style: italic;
             }
-      
+
       #pulseaudio.muted {
               color: @overlay0;
       }
