@@ -166,6 +166,8 @@
       jq
       bc
       virt-manager
+      pmbootstrap
+      android-tools
     ];
   };
 

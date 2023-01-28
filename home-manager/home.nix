@@ -88,6 +88,7 @@
     todo
     nitch
     gh
+    packwiz
     cava
     tree
 
