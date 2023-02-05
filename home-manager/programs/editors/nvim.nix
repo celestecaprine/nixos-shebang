@@ -11,6 +11,7 @@
         vim-nix
         vim-markdown
         yuck-vim
+        neoformat
 
         # Quality of life
         vim-lastplace # Opens document where you left it
@@ -38,6 +39,10 @@
         hi Normal guibg=NONE ctermbg=NONE         " Remove background, better for personal theme
         set number                                " Set numbers
         nmap <F6> :NERDTreeToggle<CR>             " F6 opens NERDTree
+        augroup fmt
+          autocmd!
+          autocmd BufWritePre * undojoin | Neoformat
+        augroup END
       '';
     };
   };

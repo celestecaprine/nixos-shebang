@@ -27,7 +27,7 @@
      --font-size 45 \
      --indicator-radius 170 \
      --indicator-thickness 15 \
-     --image ''${HOME}/.config/wallpaper.png \
+     --image ''${HOME}/Pictures/carouselwallpaper.png \
      --bs-hl-color "''${rosewater}" \
      --key-hl-color "''${rosewater}" \
      --caps-lock-bs-hl-color "''${white}" \

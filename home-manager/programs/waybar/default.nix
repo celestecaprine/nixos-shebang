@@ -74,7 +74,7 @@
           "format" = "<span foreground='#cba6f7'>{icon}</span> {volume}%";
           "format-muted" = "";
           "format-icons" = {"default" = ["" "" ""];};
-          "ignored-sinks" = ["EasyEffects Sink"];
+          "ignored-sinks" = ["EasyEffects Sink" "easyeffects_sink" "Easy Effects Sink"];
           "on-click" = "pavucontrol";
           "on-click-middle" = "wpctl set-mute @DEFAULT_SINK@ toggle";
         };
@@ -188,6 +188,11 @@
           padding: 0px 8px 0px;
       }
 
+      #mpd {
+        border-radius: 10px 0 0 10px;
+      }
+
+
       #mpd.paused {
               color: @overlay0;
               font-style: italic;
@@ -198,6 +203,7 @@
       }
 
       #custom-cava-internal {
+        border-radius: 0 10px 10px 0;
       }
 
       #idle_inhibitor {

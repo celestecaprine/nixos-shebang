@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  # Define catppuccinGrub package
   catppuccinGrub =
     pkgs.fetchFromGitHub
     {
@@ -13,6 +14,7 @@
       sha256 = "/bSolCta8GCZ4lP0u5NVqYQ9Y3ZooYCNdTwORNvR7M0=";
     };
 in {
+  # Lots of Bootloader junk
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.generationsDir.copyKernels = true;
@@ -24,6 +26,7 @@ in {
   boot.loader.grub.copyKernels = true;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.zfsSupport = true;
+  # Rollback root to an empty state
   boot.initrd.postDeviceCommands = ''
     zpool import -Nf rpool
     zfs rollback -r rpool/nixos/empty@start

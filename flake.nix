@@ -9,22 +9,28 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Impermanence
+    # Impermanence for immutable(ish) system
     impermanence.url = "github:nix-community/impermanence";
 
+    # Hyprland Wayland Compositor
     hyprland.url = "github:hyprwm/Hyprland";
 
+    # Hyprpaper Wallpaper Daemon
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
+    # XDG Desktop Portal - Hyprland
     xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
 
+    # Webcord Nix Package
     webcord.url = "github:fufexan/webcord-flake";
 
+    # Grimblast, some other packages
     hyprwm-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix Formatter
     alejandra = {
       url = "github:kamadorueda/alejandra/3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,9 +47,8 @@
     alejandra,
     ...
   } @ inputs: {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
+      # Laptop Config for a heavily modified Thinkpad T430
       np-t430 = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;}; # Pass flake inputs to our config
         # > Our main nixos configuration file <
@@ -51,8 +56,6 @@
       };
     };
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       shebang = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance

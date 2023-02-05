@@ -1,6 +1,7 @@
 {
   programs.bash = {
     enable = true;
+    # Hyprland Autostart when logging into /dev/tty1
     initExtra = ''
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
         exec Hyprland
@@ -9,6 +10,7 @@
 
     enableCompletion = true;
   };
+  # Starship Prompt
   programs.starship = {
     enable = true;
     enableBashIntegration = true;

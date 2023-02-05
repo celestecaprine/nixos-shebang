@@ -9,6 +9,7 @@
 }: {
   # You can import other home-manager modules here
   imports = [
+    # VSCode server
     "${fetchTarball {
       url = "https://github.com/msteen/nixos-vscode-server/tarball/master";
       sha256 = "1qga1cmpavyw90xap5kfz8i6yz85b0blkkwvl00sbaxqcgib2rvv";
@@ -19,26 +20,41 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
 
+    # Desktop Configuration
+
     # Desktop - Hyprland
     ./desktop/hyprland.nix
 
-    # Supplementary programs
+    # Program-Specific Configurations
+
+    # Waybar - Status Bar
     ./programs/waybar
+    # Foot - Terminal
     ./programs/foot.nix
-    #./programs/rofi.nix
+    # Tofi - Launcher
     ./programs/tofi.nix
+    # Pass - Password Manager
     ./programs/pass.nix
+    # Editors - Vim and VSCodium
     ./programs/editors
+    # SwayNC, Notification Daemon
     ./programs/swaync.nix
+    # Newsboat, RSS Reader
     ./programs/newsboat.nix
 
-    # User services
+    # Services
+
+    # Music Player Daemon
     ./services/mpd.nix
+    # GPG Agent - Key Authentication
     ./services/gpg-agent.nix
+    # SwayIdle - Idle Daemon for Screen locking
     ./services/swayidle.nix
 
+    # Personal Scripts
     ./scripts.nix
 
+    # Shell config - Bash
     ./shell/bash.nix
   ];
 
@@ -60,7 +76,6 @@
     ];
     # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = _: true;
@@ -70,47 +85,55 @@
   home = {
     username = "shebang";
     homeDirectory = "/home/shebang";
+    # Wallpapers by AstroEden (@astroeden) and Stereo (@strflr)
     file.".config/wallpaper.gif".source = ../wallpaper.gif;
     file.".config/wallpaper.png".source = ../wallpaper.png;
+    file.".config/carouselwallpaper.png".source = ../carouselwallpaper.png;
   };
 
+  # VSCode Server
   services.vscode-server.enable = true;
+  # EasyEffects for Equalization
   services.easyeffects.enable = true;
-  # services.network-manager-applet.enable = true;
 
-  # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
   home.packages = with pkgs; [
     # Terminal Apps
     btop
+    cava
+    gh
     lf
+    nitch
     tldr
     todo
-    nitch
-    gh
-    packwiz
-    cava
     tree
+    yt-dlp
 
     # Multimedia
-    pulsemixer
-    pavucontrol
     imv
-    yt-dlp
     mpv
-    mpvpaper
-    mpc-cli
+    pavucontrol
     playerctl
+    pulsemixer
+
+    # MPD Programs, also see: ./services/mpd.nix
+    mpc-cli
     obs-studio
 
+    # Webcord
     inputs.webcord.packages.${pkgs.system}.default
 
+    # Wayland-specific Programs
     waypipe
     swaylock-effects
+
+    # Minceraft
+    prismlauncher
+    packwiz
   ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
+  # Personal git configuration
   programs.git = {
     extraConfig.credential."https://github.com".helper = lib.mkForce "!${pkgs.gh}/bin/gh auth git-credential";
     enable = true;
@@ -144,8 +167,11 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Dark";
-      package = pkgs.catppuccin-gtk;
+      name = "Catppuccin-Mocha-Standard-Blue-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["blue"];
+        variant = "mocha";
+      };
     };
     iconTheme = {
       name = "Papirus-Dark";
