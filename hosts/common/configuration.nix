@@ -66,6 +66,7 @@
         openssh.authorizedKeys.keyFiles = [
           # Desktop System
           ./keys/np-desktop-id_rsa.pub
+          ./keys/np-t430-id_rsa.pub
         ];
         # Supplemental Groups
         extraGroups = ["wheel" "video" "audio" "libvirtd" "networkmanager"];
