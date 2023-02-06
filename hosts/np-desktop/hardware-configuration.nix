@@ -11,8 +11,8 @@
   # Latest Xanmod Kernel
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci"];
-  boot.initrd.kernelModules = ["i915"];
-  boot.kernelModules = ["kvm-intel"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm_amd"];
   boot.kernelParams = ["nohibernate"];
   boot.extraModulePackages = [];
   systemd.services.zfs-mount.enable = false;
@@ -22,6 +22,14 @@
     device = "rpool/nixos/empty";
     fsType = "zfs";
     options = ["zfsutil" "noatime" "X-mount.mkdir"];
+  };
+
+  # Alternate root FS, holds Nix data
+  fileSystems."/altroot" = {
+    device = "rpool/nixos/root";
+    fsType = "zfs";
+    options = ["zfsutil" "noatime" "X-mount.mkdir"];
+    neededForBoot = true;
   };
 
   # Holds top-secret information!
@@ -50,6 +58,13 @@
     options = ["zfsutil" "noatime" "X-mount.mkdir"];
   };
 
+  # Nix data from altroot
+  # fileSystems."/nix" = {
+  #   device = "/altroot/nix";
+  #   fsType = "none";
+  #   options = ["bind" "X-mount.mkdir"];
+  # };
+
   fileSystems."/nix" = {
     device = "rpool/nixos/nix";
     fsType = "zfs";
@@ -76,29 +91,15 @@
 
   zramSwap.enable = true;
 
-  networking.hostId = "b454d743";
+  networking.hostId = "585dd486";
   # NetworkManager for simpler Wifi configuration
   networking.networkmanager = {
     enable = true;
   };
 
-  services = {
-    # TLP, assists with laptop power saving
-    tlp = {
-      enable = true;
-      settings = {
-        CPU_BOOST_ON_AC = 1;
-        CPU_BOOST_ON_BAT = 0;
-      };
-    };
-  };
-
-  # Set CPU Governor
-  powerManagement.cpuFreqGovernor = "schedutil";
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   # Intel Microcode
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Bluetooth Support
   hardware.bluetooth.enable = true;

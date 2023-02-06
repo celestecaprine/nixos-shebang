@@ -68,7 +68,7 @@
           ./keys/np-desktop-id_rsa.pub
         ];
         # Supplemental Groups
-        extraGroups = ["wheel" "video" "audio" "libvirtd"];
+        extraGroups = ["wheel" "video" "audio" "libvirtd" "networkmanager"];
       };
     };
   };
