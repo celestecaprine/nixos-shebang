@@ -12,7 +12,7 @@
     # VSCode server
     "${fetchTarball {
       url = "https://github.com/msteen/nixos-vscode-server/tarball/master";
-      sha256 = "1qga1cmpavyw90xap5kfz8i6yz85b0blkkwvl00sbaxqcgib2rvv";
+      sha256 = "1lp04as15ni1hirfj729hcn6b5ylpn46xycqi2zp844byj495n81";
     }}/modules/vscode-server/home.nix"
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
@@ -103,6 +103,7 @@
     gh
     lf
     nitch
+    sshfs
     tldr
     todo
     tree

@@ -1,5 +1,18 @@
 {
   services = {
+    mpd-discord-rpc = {
+      enable = true;
+      settings = {
+        id = 1072561156201402479;
+        hosts = ["localhost:6600"];
+        format = {
+          details = "$title";
+          state = "$album by $artist";
+          large_image = "small_image";
+          small_image = "small_image";
+        };
+      };
+    };
     mpd = {
       enable = true;
       musicDirectory = "/home/shebang/Music";
