@@ -24,14 +24,6 @@
     options = ["zfsutil" "noatime" "X-mount.mkdir"];
   };
 
-  # Alternate root FS, holds Nix data
-  fileSystems."/altroot" = {
-    device = "rpool/nixos/root";
-    fsType = "zfs";
-    options = ["zfsutil" "noatime" "X-mount.mkdir"];
-    neededForBoot = true;
-  };
-
   # Holds top-secret information!
   fileSystems."/etc/secrets" = {
     device = "rpool/nixos/secrets";
@@ -57,13 +49,6 @@
     fsType = "zfs";
     options = ["zfsutil" "noatime" "X-mount.mkdir"];
   };
-
-  # Nix data from altroot
-  # fileSystems."/nix" = {
-  #   device = "/altroot/nix";
-  #   fsType = "none";
-  #   options = ["bind" "X-mount.mkdir"];
-  # };
 
   fileSystems."/nix" = {
     device = "rpool/nixos/nix";
