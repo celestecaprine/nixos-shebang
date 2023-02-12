@@ -32,14 +32,5 @@ in {
     zfs rollback -r rpool/nixos/empty@start
     zpool export -a
   '';
-  boot.loader.grub.extraPrepareConfig = ''
-    mkdir -p /boot/efi
-    mount /boot/efi
-  '';
-  boot.loader.grub.extraInstallCommands = ''
-    ESP_MIRROR=$(mktemp -d)
-    cp -r /boot/efi/EFI $ESP_MIRROR
-    rm -rf $ESP_MIRROR
-  '';
   boot.loader.grub.device = "nodev";
 }

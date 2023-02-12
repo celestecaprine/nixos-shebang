@@ -24,6 +24,8 @@
     # Webcord Nix Package
     webcord.url = "github:fufexan/webcord-flake";
 
+    nur.url = "github:nix-community/NUR";
+
     # Grimblast, some other packages
     hyprwm-contrib = {
       url = "github:hyprwm/contrib";
@@ -45,6 +47,7 @@
     hyprpaper,
     hyprwm-contrib,
     alejandra,
+    nur,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -54,12 +57,28 @@
         # > Our main nixos configuration file <
         modules = [./hosts/common/configuration.nix ./hosts/np-t430/configuration.nix];
       };
+      np-desktop = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;}; # Pass flake inputs to our config
+        # > Our main nixos configuration file <
+        modules = [./hosts/common/configuration.nix ./hosts/np-desktop/configuration.nix];
+      };
     };
 
     homeConfigurations = {
-      shebang = home-manager.lib.homeManagerConfiguration {
+      "shebang@np-t430" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs;}; # Pass flake inputs to our config
+        # > Our main home-manager configuration file <
+        modules = [./home-manager/home.nix];
+      };
+      "shebang@np-desktop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {
+          inherit inputs;
+          host = {
+            hostName = "np-desktop";
+          };
+        }; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
         modules = [./home-manager/home.nix];
       };

@@ -5,6 +5,7 @@
   lib,
   config,
   pkgs,
+  host,
   ...
 }: {
   # You can import other home-manager modules here
@@ -17,6 +18,7 @@
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
     inputs.hyprland.homeManagerModules.default
+    inputs.nur.nixosModules.nur
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
 
@@ -37,10 +39,12 @@
     ./programs/pass.nix
     # Editors - Vim and VSCodium
     ./programs/editors
-    # SwayNC, Notification Daemon
+    # SwayNC - Notification Daemon
     ./programs/swaync.nix
-    # Newsboat, RSS Reader
+    # Newsboat - RSS Reader
     ./programs/newsboat.nix
+    # Firefox - Web Browser
+    ./programs/firefox.nix
 
     # Services
 
@@ -107,6 +111,7 @@
     tldr
     todo
     tree
+    wl-clipboard
     yt-dlp
 
     # Multimedia
@@ -130,6 +135,13 @@
     # Minceraft
     prismlauncher
     packwiz
+
+    # Blender
+    (
+      if host.hostName == "np-desktop"
+      then blender-hip
+      else blender
+    )
   ];
 
   # Enable home-manager and git
@@ -144,11 +156,6 @@
       key = "9FFF 288F 4DCC 5B50 FCE8  0838 66B2 5F17 53CA 72C3";
       signByDefault = true;
     };
-  };
-
-  # based web browser
-  programs.firefox = {
-    enable = true;
   };
 
   # Nicely reload system units when changing configs

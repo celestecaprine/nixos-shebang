@@ -8,57 +8,55 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-  # Latest Xanmod Kernel
+
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm_amd"];
-  boot.kernelParams = ["nohibernate"];
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = ["amdgpu" "vfio_pci" "vfio" "vfio_iommu_type1" "vfio_virqfd"];
+  boot.kernelModules = ["kvm-amd"];
+  boot.blacklistedKernelModules = [];
+  boot.kernelParams = ["amd_iommu=on" "vfio-pci.ids=10de:1e84,10de:10f8"];
   boot.extraModulePackages = [];
   systemd.services.zfs-mount.enable = false;
 
-  # Blank root FS, gets cleared on boot
   fileSystems."/" = {
     device = "rpool/nixos/empty";
     fsType = "zfs";
-    options = ["zfsutil" "noatime" "X-mount.mkdir"];
+    options = ["zfsutil" "X-mount.mkdir"];
   };
 
-  # Holds top-secret information!
+  fileSystems."/home" = {
+    device = "rpool/nixos/home";
+    fsType = "zfs";
+    options = ["zfsutil" "X-mount.mkdir"];
+  };
+
+  fileSystems."/home/shebang/Games" = {
+    device = "rpool/nixos/home/games";
+    fsType = "zfs";
+    options = ["zfsutil" "X-mount.mkdir"];
+  };
+
   fileSystems."/etc/secrets" = {
     device = "rpool/nixos/secrets";
     fsType = "zfs";
-    options = ["zfsutil" "noatime" "X-mount.mkdir"];
+    options = ["zfsutil" "X-mount.mkdir"];
     neededForBoot = true;
-  };
-
-  fileSystems."/var" = {
-    device = "rpool/nixos/var";
-    fsType = "zfs";
-    options = ["zfsutil" "noatime" "X-mount.mkdir"];
-  };
-
-  fileSystems."/var/lib" = {
-    device = "rpool/nixos/var/lib";
-    fsType = "zfs";
-    options = ["zfsutil" "noatime" "X-mount.mkdir"];
-  };
-
-  fileSystems."/var/log" = {
-    device = "rpool/nixos/var/log";
-    fsType = "zfs";
-    options = ["zfsutil" "noatime" "X-mount.mkdir"];
   };
 
   fileSystems."/nix" = {
     device = "rpool/nixos/nix";
     fsType = "zfs";
-    options = ["zfsutil" "noatime" "X-mount.mkdir"];
+    options = ["zfsutil" "X-mount.mkdir"];
   };
 
-  # Users
-  fileSystems."/home" = {
-    device = "rpool/nixos/home";
+  fileSystems."/var/lib" = {
+    device = "rpool/nixos/var/lib";
+    fsType = "zfs";
+    options = ["zfsutil" "X-mount.mkdir"];
+  };
+
+  fileSystems."/var/log" = {
+    device = "rpool/nixos/var/log";
     fsType = "zfs";
     options = ["zfsutil" "X-mount.mkdir"];
   };
@@ -70,22 +68,22 @@
   };
 
   fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-partuuid/e285f440-5110-44e6-88fb-ab598714714c";
+    device = "/dev/disk/by-uuid/959B-2EA1";
     fsType = "vfat";
   };
 
   zramSwap.enable = true;
 
-  networking.hostId = "585dd486";
+  networking.hostId = "324fbcf7";
   # NetworkManager for simpler Wifi configuration
   networking.networkmanager = {
     enable = true;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  # Intel Microcode
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Bluetooth Support
   hardware.bluetooth.enable = true;
+  hardware.xone.enable = true;
 }

@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  host,
+  ...
+}: {
   home.file.".config/waybar/cava-barconfig".source = ../../config/cava-barconfig;
   nixpkgs.overlays = [
     (final: prev: {
@@ -27,7 +31,13 @@
         layer = "top";
         position = "top";
         height = 30;
-        output = ["LVDS-1"];
+        output = with host; (
+          if host.hostName == "np-t430"
+          then ["LVDS-1"]
+          else if host.hostName == "np-desktop"
+          then ["DP-2" "DP-3"]
+          else null
+        );
         modules-left = ["wlr/workspaces" "custom/cava-internal" "hyprland/window"];
         modules-right = ["mpd" "pulseaudio" "tray" "idle_inhibitor" "clock" "battery"];
         "wlr/workspaces" = {

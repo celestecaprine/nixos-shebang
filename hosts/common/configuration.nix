@@ -186,17 +186,22 @@
       # for iPhone tethering
       libimobiledevice
       ifuse
+
+      vim
+      git
+      lf
     ];
   };
 
   # Generic Virtual Machine Configuration
   virtualisation.libvirtd = {
     enable = true;
-    qemu = {
-      runAsRoot = false;
-      ovmf.enable = true;
-    };
     allowedBridges = ["virbr0"];
+    qemu = {
+      package = pkgs.qemu_kvm;
+      ovmf.enable = true;
+      runAsRoot = true;
+    };
   };
 
   # Yee haw
@@ -228,9 +233,9 @@
   };
 
   # Manually-defined Hosts
-  networking.hosts = {
-    "192.168.69.112" = ["survivalmod.celestecaprine.com" "creativemod.celestecaprine.com" "survivalvanilla.celestecaprine.com" "creativevanilla.celestecaprine.com"];
-  };
+  #networking.hosts = {
+  #  "192.168.69.112" = ["survivalmod.celestecaprine.com" "creativemod.celestecaprine.com" "survivalvanilla.celestecaprine.com" "creativevanilla.celestecaprine.com"];
+  #};
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";

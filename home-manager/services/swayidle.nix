@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  host,
+  ...
+}: let
   shebang-swaylock = pkgs.writeShellScriptBin "shebang-swaylock" ''
      # Variables
      transparent='00000000'
@@ -27,7 +31,7 @@
      --font-size 45 \
      --indicator-radius 170 \
      --indicator-thickness 15 \
-     --image ''${HOME}/Pictures/carouselwallpaper.png \
+     --image ''${HOME}/.config/carouselwallpaper.png \
      --bs-hl-color "''${rosewater}" \
      --key-hl-color "''${rosewater}" \
      --caps-lock-bs-hl-color "''${white}" \
@@ -71,8 +75,20 @@ in {
       }
       {
         timeout = 600;
-        command = "${pkgs.wayout}/bin/wayout --off LVDS-1";
-        resumeCommand = "${pkgs.wayout}/bin/wayout --on LVDS-1";
+        command = with pkgs; (
+          if host.hostName == "np-t430"
+          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms off LVDS-1"
+          else if host.hostName == "np-desktop"
+          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms off DP-2 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms off DP-3"
+          else false
+        );
+        resumeCommand = with pkgs; (
+          if host.hostName == "np-t430"
+          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms on LVDS-1"
+          else if host.hostName == "np-desktop"
+          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms on DP-2 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on DP-3"
+          else false
+        );
       }
     ];
   };

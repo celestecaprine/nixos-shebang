@@ -1,13 +1,30 @@
 {
   pkgs,
   inputs,
+  host,
   ...
 }: {
   wayland.windowManager.hyprland = {
     enable = true;
     recommendedEnvironment = true;
     systemdIntegration = true;
-    extraConfig = builtins.readFile ./hyprland.conf;
+    #extraConfig = hyprlandConf;
+    extraConfig = with host;
+      builtins.replaceStrings ["MONITORS"] [
+        (
+          if host.hostName == "np-t430"
+          then ''
+            monitor=LVDS-1,1920x1080@60,1920x0,1
+          ''
+          else if host.hostName == "np-desktop"
+          then ''
+            monitor=DP-2,2560x1440@144,1920x0,1
+            monitor=DP-3,1920x1080@75,0x0,1
+          ''
+          else false
+        )
+      ]
+      "${builtins.readFile ./hyprland.conf}";
   };
   #programs.mako = {
   #  enable = true;
