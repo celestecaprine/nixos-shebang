@@ -187,9 +187,8 @@
       libimobiledevice
       ifuse
 
-      vim
+      neovim
       git
-      lf
     ];
   };
 

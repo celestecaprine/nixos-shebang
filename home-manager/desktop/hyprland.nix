@@ -41,7 +41,5 @@
   #};
   home.packages = with pkgs; [
     inputs.hyprwm-contrib.packages.${system}.grimblast
-    inputs.hyprpaper.packages.${system}.default
   ];
-  xdg.dataFile."/home/shebang/.config/hypr/hyprpaper.conf".source = ../config/hyprpaper.conf;
 }

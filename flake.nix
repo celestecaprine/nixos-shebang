@@ -15,9 +15,6 @@
     # Hyprland Wayland Compositor
     hyprland.url = "github:hyprwm/Hyprland";
 
-    # Hyprpaper Wallpaper Daemon
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-
     # XDG Desktop Portal - Hyprland
     xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
 
@@ -44,7 +41,6 @@
     home-manager,
     impermanence,
     hyprland,
-    hyprpaper,
     hyprwm-contrib,
     alejandra,
     nur,

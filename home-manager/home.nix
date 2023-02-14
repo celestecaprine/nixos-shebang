@@ -7,13 +7,22 @@
   pkgs,
   host,
   ...
-}: {
+}: let
+  catppuccinQt =
+    pkgs.fetchFromGitHub
+    {
+      owner = "catppuccin";
+      repo = "Kvantum";
+      rev = "04be2ad3d28156cfb62478256f33b58ee27884e9";
+      sha256 = "apOPiVwePXbdKM1/0HAfHzIqAZxvfgL5KHzhoIMXLqI=";
+    };
+in {
   # You can import other home-manager modules here
   imports = [
     # VSCode server
     "${fetchTarball {
       url = "https://github.com/msteen/nixos-vscode-server/tarball/master";
-      sha256 = "1lp04as15ni1hirfj729hcn6b5ylpn46xycqi2zp844byj495n81";
+      sha256 = "11hd7yr7parfgjsjnr34s6fp2jgx0ihcc3cr93lfxykl2vv46cpx";
     }}/modules/vscode-server/home.nix"
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
@@ -32,7 +41,9 @@
     # Waybar - Status Bar
     ./programs/waybar
     # Foot - Terminal
-    ./programs/foot.nix
+    # ./programs/foot.nix
+    # WezTerm - Terminal
+    ./programs/wezterm.nix
     # Tofi - Launcher
     ./programs/tofi.nix
     # Pass - Password Manager
@@ -68,6 +79,8 @@
       (self: super: {
         discord = super.discord.override {withOpenASAR = true;};
       })
+
+      (import ../pkgs)
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -93,7 +106,16 @@
     file.".config/wallpaper.gif".source = ../wallpaper.gif;
     file.".config/wallpaper.png".source = ../wallpaper.png;
     file.".config/carouselwallpaper.png".source = ../carouselwallpaper.png;
+    file.".config/Kvantum/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig".source = "${catppuccinQt}/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig";
+    file.".config/Kvantum/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg".source = "${catppuccinQt}/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg";
+    sessionVariables = {
+      QT_STYLE_OVERRIDE = "kvantum";
+    };
   };
+  xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
+    [General]
+    theme=Catppuccin-Mocha-Blue
+  '';
 
   # VSCode Server
   services.vscode-server.enable = true;
@@ -105,8 +127,11 @@
     btop
     cava
     gh
-    lf
     nitch
+    ranger
+    ffmpeg
+    ffmpegthumbnailer
+    exiftool
     sshfs
     tldr
     todo
@@ -123,7 +148,6 @@
 
     # MPD Programs, also see: ./services/mpd.nix
     mpc-cli
-    obs-studio
 
     # Webcord
     inputs.webcord.packages.${pkgs.system}.default
@@ -136,12 +160,17 @@
     prismlauncher
     packwiz
 
-    # Blender
+    # Creative stuff
     (
       if host.hostName == "np-desktop"
       then blender-hip
       else blender
     )
+    obs-studio
+    gimp
+
+    libsForQt5.qtstyleplugin-kvantum
+    swww
   ];
 
   # Enable home-manager and git
@@ -189,6 +218,9 @@
       name = "Inter V";
     };
     gtk3.extraConfig = {gtk-decoration-layout = "";};
+  };
+  qt = {
+    enable = true;
   };
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
