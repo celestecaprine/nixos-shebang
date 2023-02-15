@@ -7,6 +7,7 @@
       kamadorueda.alejandra
       bbenoist.nix
       ms-vscode-remote.remote-ssh
+      sumneko.lua
     ];
     userSettings = {
       "editor.fontFamily" = "FiraCode Nerd Font Mono";
