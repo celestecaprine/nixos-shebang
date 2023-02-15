@@ -10,6 +10,8 @@
     ./hardware-configuration.nix
   ];
 
+  boot.loader.grub.useOSProber = true;
+
   networking.hostName = "np-desktop";
 
   # Just in case someone decides to steal a 10 year old laptop covered in My Little Pony stickers. Y'know, just in case.

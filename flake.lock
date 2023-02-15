@@ -356,24 +356,6 @@
         "type": "github"
       }
     },
-    "hyprpaper": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1675595446,
-        "narHash": "sha256-Xja7IC1EACtvZMkxJ2HKdvqsT7Zt7rTOYXefsMQWEaQ=",
-        "owner": "hyprwm",
-        "repo": "hyprpaper",
-        "rev": "3e7ba8500f966f6985714326d8371377a563a0cf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "hyprpaper",
-        "type": "github"
-      }
-    },
     "hyprwm-contrib": {
       "inputs": {
         "nixpkgs": [
@@ -476,22 +458,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1674641431,
-        "narHash": "sha256-qfo19qVZBP4qn5M5gXc/h1MDgAtPA5VxJm9s8RUAkVk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9b97ad7b4330aacda9b2343396eb3df8a853b4fc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1675673983,
         "narHash": "sha256-8hzNh1jtiPxL5r3ICNzSmpSzV7kGb3KwX+FS5BWJUTo=",
         "owner": "nixos",
@@ -506,7 +472,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1670507980,
         "narHash": "sha256-riNZa0xzM1it3pzxciwALeMs+0CsBMWIW2FqulzK8vM=",
@@ -522,7 +488,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1669969257,
         "narHash": "sha256-mOS13sK3v+kfgP+1Mh56ohiG8uVhLHAo7m/q9kqAehc=",
@@ -602,10 +568,9 @@
         "alejandra": "alejandra",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
-        "hyprpaper": "hyprpaper",
         "hyprwm-contrib": "hyprwm-contrib",
         "impermanence": "impermanence",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "webcord": "webcord",
         "xdph": "xdph_2"
@@ -663,7 +628,7 @@
     "webcord": {
       "inputs": {
         "dream2nix": "dream2nix",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "webcord": "webcord_2"
       },
       "locked": {
@@ -742,7 +707,7 @@
     "xdph_2": {
       "inputs": {
         "hyprland-protocols": "hyprland-protocols_2",
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1675545046,

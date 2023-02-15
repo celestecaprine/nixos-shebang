@@ -119,6 +119,8 @@
     flatpak.enable = true;
     # Disk Health Monitoring
     smartd.enable = true;
+    # Used for NFS
+    rpcbind.enable = true;
   };
 
   # Needed to configure GNOME apps
@@ -187,8 +189,35 @@
       libimobiledevice
       ifuse
 
+      # NFS
+      nfs-utils
+
       neovim
       git
+    ];
+  };
+
+  boot.supportedFilesystems = ["nfs"];
+
+  systemd = {
+    automounts = [
+      {
+        wantedBy = ["multi-user.target"];
+        automountConfig = {
+          TimeoutIdleSec = "600";
+        };
+        where = "/mnt/np-nas";
+      }
+    ];
+    mounts = [
+      {
+        type = "nfs";
+        mountConfig = {
+          Options = "noatime";
+        };
+        what = "192.168.69.111:/mnt/data/shebang";
+        where = "/mnt/np-nas";
+      }
     ];
   };
 
