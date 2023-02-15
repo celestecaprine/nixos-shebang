@@ -126,13 +126,16 @@ in {
     # Terminal Apps
     btop
     cava
-    gh
-    nitch
-    ranger
+    exiftool
     ffmpeg
     ffmpegthumbnailer
-    exiftool
+    gh
+    nitch
+    nodejs
+    ranger
+    rnix-lsp
     sshfs
+    sumneko-lua-language-server
     tldr
     todo
     tree
