@@ -28,7 +28,7 @@
     # });
     settings = {
       Main = {
-        layer = "top";
+        layer = "bottom";
         position = "top";
         height = 30;
         output = with host; (
@@ -38,23 +38,16 @@
           then ["DP-2" "DP-3"]
           else null
         );
-        modules-left = ["wlr/workspaces" "custom/cava-internal" "hyprland/window"];
+        #modules-left = ["wlr/workspaces" "custom/cava-internal" "hyprland/window"];
+        modules-left = ["sway/workspaces" "custom/cava-internal" "sway/window"];
         modules-right = ["mpd" "pulseaudio" "tray" "idle_inhibitor" "clock" "battery"];
-        "wlr/workspaces" = {
+        "sway/workspaces" = {
           "format" = "{icon}";
           "on-click" = "activate";
           "format-icons" = {
-            "1" = "";
-            "2" = "";
-            "3" = "";
-            "4" = "";
-            "5" = "";
-            "6" = "";
-            "7" = "";
-            "8" = "";
-            "9" = "";
             "urgent" = "";
             "active" = "";
+            "focused" = "";
             "default" = "";
           };
         };
@@ -162,6 +155,7 @@
       }
 
       #window {
+          color: @text;
           padding: 0px 10px 0px;
           background: transparent;
 
@@ -170,8 +164,6 @@
        background:none;
       }
 
-
-
       #workspaces {
           color: @text;
           background-color: @base;
@@ -179,12 +171,17 @@
       }
 
       #workspaces button {
-         padding: 0px 6px;
+         padding: 0px 0px;
       }
 
       #workspaces button.active {
-          	border-radius: 0px;
-      	    color: @blue;
+         border-radius: 0px;
+      	 color: @blue;
+      }
+
+      #workspaces button.focused {
+         border-radius: 0px;
+      	 color: @blue;
       }
 
       button:hover {

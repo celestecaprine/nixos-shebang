@@ -121,6 +121,17 @@
     smartd.enable = true;
     # Used for NFS
     rpcbind.enable = true;
+    # Greetd for a better login
+    greetd = {
+      enable = true;
+      #package = with pkgs; greetd.tuigreet;
+      settings = {
+        default_session = {
+          command = with pkgs; "${greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
   };
 
   # Needed to configure GNOME apps
@@ -131,14 +142,14 @@
   # Fonts
   fonts.fonts = with pkgs; [
     spleen
-    font-awesome
+    material-icons
     inter
     fira
     fira-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-extra
-    noto-fonts-emoji
+    noto-fonts-emoji-blob-bin
     (nerdfonts.override {fonts = ["FiraCode"];})
   ];
 
@@ -146,7 +157,10 @@
   xdg.portal = {
     enable = true;
     # XDG Portals Hyprland
-    extraPortals = [inputs.xdph.packages.${pkgs.system}.default];
+    wlr.enable = true;
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    #extraPortals = [inputs.xdph.packages.${pkgs.system}.default];
   };
 
   environment = {
@@ -192,6 +206,7 @@
       # NFS
       nfs-utils
 
+      python310Packages.vapoursynth
       neovim
       git
     ];
@@ -261,9 +276,9 @@
   };
 
   # Manually-defined Hosts
-  #networking.hosts = {
-  #  "192.168.69.112" = ["survivalmod.celestecaprine.com" "creativemod.celestecaprine.com" "survivalvanilla.celestecaprine.com" "creativevanilla.celestecaprine.com"];
-  #};
+  networking.hosts = {
+    "192.168.69.130" = ["survivalmod.celestecaprine.com" "creativemod.celestecaprine.com" "survivalvanilla.celestecaprine.com" "creativevanilla.celestecaprine.com"];
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";

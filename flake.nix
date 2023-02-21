@@ -12,12 +12,6 @@
     # Impermanence for immutable(ish) system
     impermanence.url = "github:nix-community/impermanence";
 
-    # Hyprland Wayland Compositor
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    # XDG Desktop Portal - Hyprland
-    xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
-
     # Webcord Nix Package
     webcord.url = "github:fufexan/webcord-flake";
 
@@ -40,8 +34,6 @@
     nixpkgs,
     home-manager,
     impermanence,
-    hyprland,
-    hyprwm-contrib,
     alejandra,
     nur,
     ...

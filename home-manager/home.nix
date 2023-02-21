@@ -26,7 +26,7 @@ in {
     }}/modules/vscode-server/home.nix"
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
-    inputs.hyprland.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default
     inputs.nur.nixosModules.nur
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
@@ -34,16 +34,22 @@ in {
     # Desktop Configuration
 
     # Desktop - Hyprland
-    ./desktop/hyprland.nix
+    #./desktop/hyprland
+
+    # Desktop - Sway
+    ./desktop/sway
+
+    # Monitor setup for Sway
+    ./programs/kanshi.nix
 
     # Program-Specific Configurations
 
     # Waybar - Status Bar
     ./programs/waybar
     # Foot - Terminal
-    # ./programs/foot.nix
+    ./programs/foot.nix
     # WezTerm - Terminal
-    ./programs/wezterm.nix
+    # ./programs/wezterm.nix
     # Tofi - Launcher
     ./programs/tofi.nix
     # Pass - Password Manager
@@ -51,7 +57,9 @@ in {
     # Editors - Vim and VSCodium
     ./programs/editors
     # SwayNC - Notification Daemon
-    ./programs/swaync.nix
+    # ./programs/swaync.nix
+    # Mako - Notification Daemon
+    ./programs/mako.nix
     # Newsboat - RSS Reader
     ./programs/newsboat.nix
     # Firefox - Web Browser
@@ -164,16 +172,17 @@ in {
     packwiz
 
     # Creative stuff
-    (
-      if host.hostName == "np-desktop"
-      then blender-hip
-      else blender
-    )
+    #(
+    #  if host.hostName == "np-desktop"
+    #  then blender-hip
+    #  else blender
+    #)
     obs-studio
     gimp
 
     libsForQt5.qtstyleplugin-kvantum
     swww
+    tetrio-desktop
   ];
 
   # Enable home-manager and git
@@ -226,7 +235,10 @@ in {
     enable = true;
   };
 
-  home.sessionVariables.NIXOS_OZONE_WL = "1";
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    BEMENU_OPTS = ''-b -i -H 25 --fb "#1e1e2e" --ff "#94e2d5" --nb "#1e1e2e" --nf "#f5e0dc" --tb "#1e1e2e" --hb "#1e1e2e" --tf "#cba6f7" --hf "#89b4fa" --nf "#f5e0dc" --af "#f5e0dc" --ab "#1e1e2e"'';
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "22.11";

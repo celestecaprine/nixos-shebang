@@ -38,13 +38,6 @@
     swtpm.enable = true;
   };
 
-  # AMD GPU
-
-  # services.xserver.videoDrivers = [
-  #   "amdgpu"
-  #   "amdgpu-pro"
-  # ];
-
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
@@ -59,6 +52,62 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
     "f /dev/shm/looking-glass 0660 shebang kvm -"
   ];
+
+  services.zrepl = {
+    enable = true;
+    settings = {
+      global = {
+        logging = [
+          {
+            type = "syslog";
+            format = "human";
+            level = "warn";
+          }
+        ];
+      };
+      jobs = [
+        {
+          name = "pools_to_nas";
+          type = "push";
+
+          connect = {
+            type = "tcp";
+            address = "192.168.69.111:8889";
+          };
+          filesystems = {
+            "bpool<" = true;
+            "rpool<" = true;
+            "rpool/nixos/empty" = false;
+            "rpool/nixos/secrets" = false;
+            "rpool/nixos/home/games" = false;
+          };
+          snapshotting = {
+            type = "periodic";
+            prefix = "zrepl_";
+            interval = "24h";
+          };
+          pruning = {
+            keep_sender = [
+              {
+                type = "not_replicated";
+              }
+              {
+                type = "last_n";
+                count = 7;
+              }
+            ];
+            keep_receiver = [
+              {
+                type = "grid";
+                regex = "^zrepl_.*";
+                grid = "1x1h(keep=all) | 24x1h | 35x1d | 6x30d";
+              }
+            ];
+          };
+        }
+      ];
+    };
+  };
 
   # Bluetooth
   services.blueman.enable = true;

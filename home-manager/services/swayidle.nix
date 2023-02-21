@@ -3,6 +3,26 @@
   host,
   ...
 }: let
+  swayoutputctl = pkgs.writeShellScriptBin "swayoutputctl" ''
+    #!/bin/sh
+
+    monitors=$(swaymsg -t get_outputs -r | jq -e '.[].name')
+
+    if [ -z "$1" ]; then
+    	echo "No Argument Supplied"
+    else
+    	if [ "$1" = "on" ]; then
+    		for i in $monitors
+    		do swaymsg output $i enable
+    		done
+    	elif [ "$1" = "off" ]; then
+    		for i in $monitors
+    		do swaymsg output $i disable
+    		done
+    	else echo "Invalid Argument"
+    	fi
+    fi
+  '';
   shebang-swaylock = pkgs.writeShellScriptBin "shebang-swaylock" ''
      # Variables
      transparent='00000000'
@@ -61,7 +81,7 @@
 in {
   services.swayidle = {
     enable = true;
-    systemdTarget = "hyprland-session.target";
+    systemdTarget = "sway-session.target";
     events = [
       {
         event = "before-sleep";
@@ -75,20 +95,8 @@ in {
       }
       {
         timeout = 600;
-        command = with pkgs; (
-          if host.hostName == "np-t430"
-          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms off LVDS-1"
-          else if host.hostName == "np-desktop"
-          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms off DP-2 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms off DP-3"
-          else false
-        );
-        resumeCommand = with pkgs; (
-          if host.hostName == "np-t430"
-          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms on LVDS-1"
-          else if host.hostName == "np-desktop"
-          then "${pkgs.hyprland}/bin/hyprctl dispatch dpms on DP-2 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on DP-3"
-          else false
-        );
+        command = with pkgs; "${swayoutputctl}/bin/swayoutputctl off";
+        resumeCommand = with pkgs; "${swayoutputctl}/bin/swayoutputctl on";
       }
     ];
   };
