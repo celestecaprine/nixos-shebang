@@ -95,8 +95,8 @@ in {
       }
       {
         timeout = 600;
-        command = with pkgs; "${swayoutputctl}/bin/swayoutputctl off";
-        resumeCommand = with pkgs; "${swayoutputctl}/bin/swayoutputctl on";
+        command = with pkgs; "${sway}/bin/swaymsg 'output * power off'";
+        resumeCommand = with pkgs; "${sway}/bin/swaymsg 'output * power on'";
       }
     ];
   };

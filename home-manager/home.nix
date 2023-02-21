@@ -22,7 +22,7 @@ in {
     # VSCode server
     "${fetchTarball {
       url = "https://github.com/msteen/nixos-vscode-server/tarball/master";
-      sha256 = "11hd7yr7parfgjsjnr34s6fp2jgx0ihcc3cr93lfxykl2vv46cpx";
+      sha256 = "0ahgyd2swkapimvf70ah2y55wpn2hdh1wymfh6492xrkv5x91sqz";
     }}/modules/vscode-server/home.nix"
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
