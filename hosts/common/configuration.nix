@@ -115,7 +115,10 @@
     gvfs = {
       enable = true;
     };
-    dbus.enable = true;
+    dbus = {
+      enable = true;
+      packages = [pkgs.gcr];
+    };
     flatpak.enable = true;
     # Disk Health Monitoring
     smartd.enable = true;
@@ -183,7 +186,6 @@
       ];
     };
     systemPackages = with pkgs; [
-      pinentry-curses
       # Nix Formatter
       inputs.alejandra.defaultPackage.${system}
       # For SMART drives
@@ -205,6 +207,9 @@
 
       # NFS
       nfs-utils
+
+      # CIFS
+      cifs-utils
 
       python310Packages.vapoursynth
       neovim

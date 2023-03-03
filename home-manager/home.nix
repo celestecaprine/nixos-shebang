@@ -161,7 +161,7 @@ in {
     mpc-cli
 
     # Webcord
-    inputs.webcord.packages.${pkgs.system}.default
+    webcord
 
     # Wayland-specific Programs
     waypipe

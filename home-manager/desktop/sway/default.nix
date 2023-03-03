@@ -1,4 +1,6 @@
 {
+  host,
+  lib,
   pkgs,
   config,
   ...
@@ -164,6 +166,7 @@
         "${mod}+Print" = "exec grimshot --notify copy area";
         "${mod}+Shift+Print" = "exec grimshot --notify copy output";
         "${mod}+Control+Print" = "exec grimshot --notify copy active";
+        "control+mod1+Delete" = "exec powermenu";
 
         "--locked XF86AudioPlay" = "exec mpc toggle";
         "--locked XF86AudioNext" = "exec mpc next";
@@ -181,7 +184,11 @@
             style = "Regular";
             size = 10.0;
           };
-          trayOutput = "DP-2";
+          trayOutput = (
+            if host.hostName == "np-desktop"
+            then "DP-2"
+            else "LVDS-1"
+          );
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs $HOME/.config/i3status-rust/config-default.toml";
           colors = let
             base = "#1e1e2e";
@@ -250,6 +257,7 @@
         blocks = [
           {
             block = "disk_space";
+            format = "{icon} {available} FREE";
             path = "/";
             alias = "/";
             info_type = "available";
@@ -274,6 +282,13 @@
             interval = 60;
             format = "%a, %B %d %I:%M %p";
           }
+          (
+            if host.hostName == "np-t430"
+            then {
+              block = "battery";
+            }
+            else null
+          )
         ];
         theme = "native";
       };
