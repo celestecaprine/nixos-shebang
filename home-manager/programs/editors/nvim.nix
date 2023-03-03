@@ -52,6 +52,7 @@
         nvim-web-devicons
 
         coc-markdownlint
+        coc-pyright
         coc-docker
         coc-sh
         coc-json

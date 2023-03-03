@@ -120,6 +120,35 @@ in {
       QT_STYLE_OVERRIDE = "kvantum";
     };
   };
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "image/jpeg" = "imv.desktop";
+      "image/png" = "imv.desktop";
+      "image/svg+xml" = "imv.desktop";
+      "image/avif" = "imv.desktop";
+      "image/gif" = "imv.desktop";
+      "application/pdf" = "zathura.desktop";
+      "text/plain" = "nvim.desktop";
+      "text/css" = "nvim.desktop";
+      "text/csv" = "nvim.desktop";
+      "text/html" = "firefox.desktop";
+      "text/xml" = "nvim.desktop";
+    };
+    defaultApplications = {
+      "image/jpeg" = "imv.desktop";
+      "image/png" = "imv.desktop";
+      "image/svg+xml" = "imv.desktop";
+      "image/avif" = "imv.desktop";
+      "image/gif" = "imv.desktop";
+      "application/pdf" = "zathura.desktop";
+      "text/plain" = "nvim.desktop";
+      "text/css" = "nvim.desktop";
+      "text/csv" = "nvim.desktop";
+      "text/html" = "firefox.desktop";
+      "text/xml" = "nvim.desktop";
+    };
+  };
   xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
     [General]
     theme=Catppuccin-Mocha-Blue
@@ -131,58 +160,46 @@ in {
   services.easyeffects.enable = true;
 
   home.packages = with pkgs; [
-    # Terminal Apps
     btop
     cava
     exiftool
     ffmpeg
     ffmpegthumbnailer
     gh
+    gimp
+    imv
+    inkscape
+    webcord
+    libsForQt5.qtstyleplugin-kvantum
+    mpc-cli
+    mpv
     nitch
     nodejs
+    obs-studio
+    packwiz
+    pavucontrol
+    playerctl
+    prismlauncher
+    pulsemixer
     ranger
     rnix-lsp
     sshfs
     sumneko-lua-language-server
+    swaylock-effects
+    swww
+    tetrio-desktop
     tldr
     todo
     tree
+    waypipe
     wl-clipboard
     yt-dlp
-
-    # Multimedia
-    imv
-    mpv
-    pavucontrol
-    playerctl
-    pulsemixer
-
-    # MPD Programs, also see: ./services/mpd.nix
-    mpc-cli
-
-    # Webcord
-    webcord
-
-    # Wayland-specific Programs
-    waypipe
-    swaylock-effects
-
-    # Minceraft
-    prismlauncher
-    packwiz
-
-    # Creative stuff
-    #(
-    #  if host.hostName == "np-desktop"
-    #  then blender-hip
-    #  else blender
-    #)
-    obs-studio
-    gimp
-
-    libsForQt5.qtstyleplugin-kvantum
-    swww
-    tetrio-desktop
+    zathura
+    (
+      if host.hostName == "np-desktop"
+      then blender-hip
+      else blender
+    )
   ];
 
   # Enable home-manager and git

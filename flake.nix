@@ -17,12 +17,6 @@
 
     nur.url = "github:nix-community/NUR";
 
-    # Grimblast, some other packages
-    hyprwm-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Nix Formatter
     alejandra = {
       url = "github:kamadorueda/alejandra/3.0.0";
