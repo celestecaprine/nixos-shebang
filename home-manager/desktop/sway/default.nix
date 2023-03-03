@@ -287,7 +287,7 @@
             then {
               block = "battery";
             }
-            else null
+            else {}
           )
         ];
         theme = "native";
