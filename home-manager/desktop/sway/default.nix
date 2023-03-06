@@ -236,7 +236,7 @@
         titlebar = true;
       };
       startup = [
-        {command = "swww init & swww img $HOME/.config/carouselwallpaper.png";}
+        {command = "swaybg -i $HOME/.config/carouselwallpaper.png";}
         #{command = "waybar";}
         {command = "foot -s";}
         {command = "swaysome init 1";}
@@ -299,6 +299,7 @@
     bemenu
     grim
     slurp
+    swaybg
     sway-contrib.grimshot
   ];
 }

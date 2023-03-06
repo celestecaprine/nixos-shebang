@@ -181,12 +181,12 @@ in {
     playerctl
     prismlauncher
     pulsemixer
-    ranger
+    clifm
+    fzf
     rnix-lsp
     sshfs
     sumneko-lua-language-server
     swaylock-effects
-    swww
     tetrio-desktop
     tldr
     todo
