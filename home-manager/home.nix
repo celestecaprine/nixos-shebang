@@ -162,14 +162,15 @@ in {
   home.packages = with pkgs; [
     btop
     cava
+    clifm
     exiftool
     ffmpeg
     ffmpegthumbnailer
+    fzf
     gh
     gimp
     imv
     inkscape
-    webcord
     libsForQt5.qtstyleplugin-kvantum
     mpc-cli
     mpv
@@ -178,11 +179,10 @@ in {
     obs-studio
     packwiz
     pavucontrol
+    pcmanfm
     playerctl
     prismlauncher
     pulsemixer
-    clifm
-    fzf
     rnix-lsp
     sshfs
     sumneko-lua-language-server
@@ -192,6 +192,7 @@ in {
     todo
     tree
     waypipe
+    webcord
     wl-clipboard
     yt-dlp
     zathura
