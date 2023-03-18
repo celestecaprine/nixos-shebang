@@ -67,6 +67,7 @@
           # Desktop System
           ./keys/np-desktop-id_rsa.pub
           ./keys/np-t430-id_rsa.pub
+          ./keys/np-pbookg4-id_rsa.pub
         ];
         # Supplemental Groups
         extraGroups = ["wheel" "video" "audio" "libvirtd" "networkmanager"];
@@ -103,7 +104,7 @@
       allowSFTP = true;
       settings = {
         PermitRootLogin = "no";
-        PasswordAuthentication = false;
+        #PasswordAuthentication = false;
       };
     };
     # Included for iPhone tethering
@@ -235,7 +236,7 @@
         mountConfig = {
           Options = "noatime";
         };
-        what = "192.168.69.111:/mnt/data/shebang";
+        what = "192.168.69.115:/mnt/data/shebang";
         where = "/mnt/np-nas";
       }
     ];
@@ -282,7 +283,7 @@
 
   # Manually-defined Hosts
   networking.hosts = {
-    "192.168.69.130" = ["survivalmod.celestecaprine.com" "creativemod.celestecaprine.com" "survivalvanilla.celestecaprine.com" "creativevanilla.celestecaprine.com"];
+    "192.168.69.100" = ["survivalmod.celestecaprine.com" "creativemod.celestecaprine.com" "survivalvanilla.celestecaprine.com" "creativevanilla.celestecaprine.com"];
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

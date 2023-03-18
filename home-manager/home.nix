@@ -116,6 +116,9 @@ in {
     file.".config/carouselwallpaper.png".source = ../carouselwallpaper.png;
     file.".config/Kvantum/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig".source = "${catppuccinQt}/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig";
     file.".config/Kvantum/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg".source = "${catppuccinQt}/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg";
+    file.".config/gtk-4.0/assets".source = "${pkgs.catppuccin-gtk}/share/themes/Catppuccin-Mocha-Standard-Blue-Dark/gtk-4.0/assets";
+    file.".config/gtk-4.0/gtk.css".source = "${pkgs.catppuccin-gtk}/share/themes/Catppuccin-Mocha-Standard-Blue-Dark/gtk-4.0/gtk.css";
+    file.".config/gtk-4.0/gtk-dark.css".source = "${pkgs.catppuccin-gtk}/share/themes/Catppuccin-Mocha-Standard-Blue-Dark/gtk-4.0/gtk-dark.css";
     sessionVariables = {
       QT_STYLE_OVERRIDE = "kvantum";
     };
@@ -160,6 +163,8 @@ in {
   services.easyeffects.enable = true;
 
   home.packages = with pkgs; [
+    direnv
+    blockbench-electron
     btop
     cava
     clifm
@@ -248,6 +253,7 @@ in {
       name = "Inter V";
     };
     gtk3.extraConfig = {gtk-decoration-layout = "";};
+    gtk4.extraConfig = {gtk-decoration-layout = "";};
   };
   qt = {
     enable = true;
