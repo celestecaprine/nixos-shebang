@@ -2,10 +2,14 @@
   programs.bash = {
     enable = true;
     initExtra = ''
-      eval "$(direnv hook bash)"
+      export DIRENV_LOG_FORMAT=
     '';
-
     enableCompletion = true;
+  };
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
   };
   # Starship Prompt
   programs.starship = {

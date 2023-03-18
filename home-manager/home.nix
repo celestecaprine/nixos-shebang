@@ -163,7 +163,6 @@ in {
   services.easyeffects.enable = true;
 
   home.packages = with pkgs; [
-    direnv
     blockbench-electron
     btop
     cava
