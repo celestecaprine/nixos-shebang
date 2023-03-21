@@ -50,6 +50,8 @@ in {
     ./programs/foot.nix
     # WezTerm - Terminal
     # ./programs/wezterm.nix
+    # lf-sixel - Terminal File Manager
+    ./programs/lf.nix
     # Tofi - Launcher
     ./programs/tofi.nix
     # Pass - Password Manager
@@ -163,10 +165,23 @@ in {
   services.easyeffects.enable = true;
 
   home.packages = with pkgs; [
+    imagemagick
+    poppler
+    gnome-epub-thumbnailer
+    #wkhtmltopdf
+    bat
+    unzip
+    p7zip
+    unrar
+    catdoc
+    glow
+    libcdio
+    transmission
+    chafa
     blockbench-electron
     btop
     cava
-    clifm
+    lf-sixel
     exiftool
     ffmpeg
     ffmpegthumbnailer

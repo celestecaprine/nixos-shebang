@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  programs.mako = {
+  services.mako = {
     enable = true;
     defaultTimeout = 3000;
     backgroundColor = "#1e1e2e";

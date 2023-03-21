@@ -125,17 +125,6 @@
     smartd.enable = true;
     # Used for NFS
     rpcbind.enable = true;
-    # Greetd for a better login
-    greetd = {
-      enable = true;
-      #package = with pkgs; greetd.tuigreet;
-      settings = {
-        default_session = {
-          command = with pkgs; "${greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-          user = "greeter";
-        };
-      };
-    };
   };
 
   # Needed to configure GNOME apps

@@ -177,59 +177,7 @@
         "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
       };
       menu = "bemenu-run";
-      bars = [
-        {
-          fonts = {
-            names = ["FiraCode Nerd Font Mono"];
-            style = "Regular";
-            size = 10.0;
-          };
-          trayOutput = (
-            if host.hostName == "np-desktop"
-            then "DP-2"
-            else "LVDS-1"
-          );
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs $HOME/.config/i3status-rust/config-default.toml";
-          colors = let
-            base = "#1e1e2e";
-            text = "#cdd6f4";
-            blue = "#89b4fa";
-            blueBorder = "#526c96";
-            teal = "#94e2d5";
-            overlay0 = "#6c7086";
-            overlay2 = "#9399b2";
-            rosewater = "#f5e0dc";
-            lavender = "#b4befe";
-            lavenderBorder = "#9098cb";
-            peach = "#fab387";
-            peachBorder = "#966b51";
-          in {
-            background = "${base}";
-            separator = "${overlay0}";
-            statusline = "${text}";
-            focusedWorkspace = {
-              border = "${blueBorder}";
-              background = "${blue}";
-              text = "${base}";
-            };
-            urgentWorkspace = {
-              border = "${peachBorder}";
-              background = "${peach}";
-              text = "${text}";
-            };
-            inactiveWorkspace = {
-              border = "${overlay0}";
-              background = "${base}";
-              text = "${text}";
-            };
-            activeWorkspace = {
-              border = "${overlay0}";
-              background = "${base}";
-              text = "${text}";
-            };
-          };
-        }
-      ];
+      bars = [];
       modifier = "Mod4";
       terminal = "footclient";
       window = {
@@ -237,7 +185,7 @@
       };
       startup = [
         {command = "swaybg -i $HOME/.config/carouselwallpaper.png";}
-        #{command = "waybar";}
+        {command = "waybar";}
         {command = "foot -s";}
         {command = "swaysome init 1";}
         {
@@ -249,50 +197,6 @@
     extraConfig = ''
       seat seat0 xcursor_theme Catppuccin-Mocha-Dark-Cursors 32
     '';
-  };
-  programs.i3status-rust = {
-    enable = true;
-    bars = {
-      default = {
-        blocks = [
-          {
-            block = "disk_space";
-            format = "{icon} {available} FREE";
-            path = "/";
-            alias = "/";
-            info_type = "available";
-            unit = "GB";
-            interval = 60;
-            warning = 20.0;
-            alert = 10.0;
-          }
-          {
-            block = "memory";
-            display_type = "memory";
-            format_mem = "{mem_used_percents}";
-            format_swap = "{swap_used_percents}";
-          }
-          {
-            block = "cpu";
-            interval = 1;
-          }
-          {block = "sound";}
-          {
-            block = "time";
-            interval = 60;
-            format = "%a, %B %d %I:%M %p";
-          }
-          (
-            if host.hostName == "np-t430"
-            then {
-              block = "battery";
-            }
-            else {}
-          )
-        ];
-        theme = "native";
-      };
-    };
   };
   home.packages = with pkgs; [
     swaysome

@@ -29,7 +29,7 @@
     settings = {
       Main = {
         layer = "bottom";
-        position = "top";
+        position = "bottom";
         height = 30;
         output = with host; (
           if host.hostName == "np-t430"
@@ -44,12 +44,6 @@
         "sway/workspaces" = {
           "format" = "{icon}";
           "on-click" = "activate";
-          "format-icons" = {
-            "urgent" = "";
-            "active" = "";
-            "focused" = "";
-            "default" = "";
-          };
         };
         "custom/cava-internal" = {
           "exec" = "sleep 1s && cava-internal";
@@ -143,7 +137,7 @@
       * {
           min-height: 0;
           border: none;
-          font-family: "Fira Mono", "Font Awesome 6 Free";
+          font-family: "FiraCode Nerd Font", "Font Awesome 6 Free";
           font-size: 16px;
           margin: 0px;
           padding: 0px;

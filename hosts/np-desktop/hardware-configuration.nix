@@ -9,7 +9,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  boot.zfs.enableUnstable = true;
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = ["amdgpu" "vfio_pci" "vfio" "vfio_iommu_type1" "vfio_virqfd"];
   boot.kernelModules = ["kvm-amd"];

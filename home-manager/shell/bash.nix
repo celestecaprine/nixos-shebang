@@ -2,7 +2,10 @@
   programs.bash = {
     enable = true;
     initExtra = ''
-      export DIRENV_LOG_FORMAT=
+      if [ "$(tty)" = "/dev/tty1" ] ; then
+        exec sway
+      fi
+        export DIRENV_LOG_FORMAT=
     '';
     enableCompletion = true;
   };
